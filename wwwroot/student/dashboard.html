@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - My Learning</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+    <style>
+        .border-glow-card {
+            position: relative;
+            padding: 20px;
+            overflow: visible; /* or hidden if you don't want the image sticking out */
+        }
+
+        .thumimg {
+            position: absolute;
+            top: 15px; /* change as needed */
+            right: 15px; /* or left: 15px */
+
+            width: 200px;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 id="welcomeText"></h1>
+
+    <div class="stats-row">
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statEnrolled">-</div>
+            <div class="stat-label">Enrolled Courses</div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h2 class="mb-0">My Courses</h2>
+        <div class="d-flex gap-2 align-items-center">
+            <a class="btn btn-sm" href="/student/catalog.html">Browse All Courses</a>
+            <a class="btn btn-sm" href="/student/qna.html">My Q&amp;A</a>
+        </div>
+    </div>
+
+    <!-- JS renders BorderGlow course cards in here -->
+    <div id="courseCards"></div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/student/dashboard.js"></script>
+</body>
+</html>

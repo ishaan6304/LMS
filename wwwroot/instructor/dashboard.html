@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Instructor Dashboard</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 id="welcomeText"></h1>
+
+    <div class="stats-row">
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statMyCourses">-</div>
+            <div class="stat-label">My Courses</div>
+        </div>
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statMyStudents">-</div>
+            <div class="stat-label">Students Enrolled</div>
+        </div>
+    </div>
+
+    <h2>Services</h2>
+
+    <div class="services-grid mb-4">
+        <a class="border-glow-card service-card" href="/instructor/courses.html">
+            <div class="service-emoji">📚</div>
+            <h3>My Courses</h3>
+            <p>Browse, edit and disable your courses</p>
+        </a>
+        <a class="border-glow-card service-card" href="/instructor/create-course.html">
+            <div class="service-emoji">➕</div>
+            <h3>Create Course</h3>
+            <p>Add a new course with chapters and content</p>
+        </a>
+        <a class="border-glow-card service-card" href="/instructor/requests.html">
+            <div class="service-emoji">📨</div>
+            <h3>Enrollment Requests</h3>
+            <p>Approve or reject student requests</p>
+        </a>
+        <a class="border-glow-card service-card" href="/instructor/qna.html">
+            <div class="service-emoji">❓</div>
+            <h3>Q&amp;A</h3>
+            <p>Answer questions from your students</p>
+        </a>
+        <a class="border-glow-card service-card" href="/instructor/assign.html">
+            <div class="service-emoji">🎯</div>
+            <h3>Assign Courses</h3>
+            <p>Enroll students into your courses</p>
+        </a>
+        <a class="border-glow-card service-card" href="/profile.html">
+            <div class="service-emoji">👤</div>
+            <h3>My Profile</h3>
+            <p>Update your details and password</p>
+        </a>
+    </div>
+
+    <h2>Enrollment per Course</h2>
+
+    <div class="border-glow-card mb-4">
+        <table>
+            <thead>
+                <tr><th>Course</th><th>Enrolled Students</th></tr>
+            </thead>
+            <tbody id="statsTableBody"></tbody>
+        </table>
+    </div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/instructor/dashboard.js"></script>
+</body>
+</html>
