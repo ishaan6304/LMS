@@ -13,8 +13,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 //                               load instructor dropdown                               //
 
-//          small GET just to fill the dropdown -          //
-//          this page's ONE write operation is the POST below          //
+
 
 async function loadInstructorDropdown() {
     const instructors = await apiGet("/api/users?role=Instructor");
