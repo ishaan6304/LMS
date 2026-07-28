@@ -25,9 +25,6 @@ public class Course : BaseEntity
     public bool IsActive { get; set; } = true;
 
     public ApplicationUser Instructor { get; set; } = null!;
-
-    //          category is now a plain string (name), validated against          //
-    //          the Categories table so admins can add new categories          //
     public string Category { get; set; } = string.Empty;
 
     public CourseLevel Level { get; set; }

@@ -98,7 +98,6 @@ public class CourseService : ICourseService
             query = query.Where(c => c.InstructorId == currentUserId);
         }
 
-        //          SEARCH: EF translates Contains() into SQL LIKE '%term%'          //
 
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -125,11 +124,9 @@ public class CourseService : ICourseService
         };
     }
 
-    //                               get catalog (student browse, with search)                               //
 
     public async Task<ApiResponse<List<CatalogCourseDto>>> GetCatalogAsync(string studentId, string? search)
     {
-        //          students only ever see ACTIVE (not soft-deleted) courses          //
 
         var query = _context.Courses
             .Include(c => c.Instructor)
@@ -146,7 +143,6 @@ public class CourseService : ICourseService
 
         var courses = await query.OrderByDescending(c => c.CreatedAt).ToListAsync();
 
-        //          this student's enrollments: courseId -> status          //
 
         var myEnrollments = await _context.Enrollments
             .Where(e => e.StudentId == studentId)
@@ -181,8 +177,6 @@ public class CourseService : ICourseService
         };
     }
 
-    //                               get course details                               //
-
     public async Task<ApiResponse<CourseDetailDto>> GetCourseDetailAsync(int courseId, string currentUserId, bool isAdmin)
     {
         var course = await _context.Courses
@@ -202,8 +196,6 @@ public class CourseService : ICourseService
 
         var isOwner = course.InstructorId == currentUserId;
 
-        //          AUDIT MODE: any logged-in user may view an ACTIVE course.          //
-        //          Disabled courses stay visible only to admin and the owner.          //
 
         if (!isAdmin && !isOwner && !course.IsActive)
         {
@@ -214,17 +206,11 @@ public class CourseService : ICourseService
             };
         }
 
-        //          this user's enrollment (null when auditing)          //
-
         var enrollment = await _context.Enrollments
             .FirstOrDefaultAsync(e => e.CourseId == courseId && e.StudentId == currentUserId);
 
-        //                               completed content ids for this user                               //
 
-        var completedIds = await _context.ContentProgresses
-            .Where(p => p.StudentId == currentUserId)
-            .Select(p => p.ContentId)
-            .ToListAsync();
+        var progressRows = await _context.ContentProgresses.Where(p => p.StudentId == currentUserId).ToListAsync();
 
         var detail = new CourseDetailDto
         {
@@ -252,6 +238,8 @@ public class CourseService : ICourseService
 
             foreach (var content in chapter.Contents.OrderBy(co => co.DisplayOrder))
             {
+                var progress = progressRows.FirstOrDefault(p => p.ContentId == content.ChapterContentId);
+
                 chapterDto.Contents.Add(new ChapterContentDto
                 {
                     ChapterContentId = content.ChapterContentId,
@@ -259,7 +247,9 @@ public class CourseService : ICourseService
                     ContentType = content.ContentType.ToString(),
                     ContentUrl = content.ContentUrl,
                     DisplayOrder = content.DisplayOrder,
-                    IsCompleted = completedIds.Contains(content.ChapterContentId)
+                    IsCompleted = progress != null && progress.CompletedOn != null,
+                    WatchedSeconds = progress == null ? 0 : progress.WatchedSeconds,
+                    DurationSeconds = progress == null ? 0 : progress.DurationSeconds
                 });
             }
 
@@ -459,9 +449,6 @@ public class CourseService : ICourseService
         if (!await CanManageCourseAsync(principal, course))
             return new ApiResponse<string> { Success = false, Message = "You cannot delete this course." };
 
-        //          soft delete: we DO NOT remove the row anymore.          //
-        //          Chapters, contents, enrollments and progress all survive,          //
-        //          so an admin can bring the course back exactly as it was.          //
 
         course.IsActive = false;
         course.DeletedAt = DateTime.UtcNow;

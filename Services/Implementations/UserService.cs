@@ -84,11 +84,11 @@ public class UserService : IUserService
         {
             await _emailService.SendAsync(
                 request.Email,
-                "Your LMS account is ready 🎓",
+                "Your PaceLMS account is ready 🎓",
                 $"<h3>Welcome, {request.FirstName}!</h3>" +
                 $"<p>The admin created your <b>{request.Role}</b> account.</p>" +
                 $"<p><b>Email:</b> {request.Email}<br/><b>Password:</b> {request.Password}</p>" +
-                $"<p><a href='http://localhost:5202'>Login here</a></p>");
+                $"<p><a href='http://pacelms.runasp.net'>Login here</a></p>");
         }
         catch (Exception)
         {

@@ -1,3 +1,4 @@
+using Azure.Core;
 using LMS.Models.Common;
 using LMS.Models.DTOs.Auth;
 using LMS.Models.DTOs.Users;
@@ -110,7 +111,7 @@ public class AuthService : IAuthService
         if (user != null)
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var link = "http://localhost:5202/reset-password.html"
+            var link = "http://pacelms.runasp.net/reset-password.html"
                      + "?email=" + WebUtility.UrlEncode(request.Email)
                      + "&token=" + WebUtility.UrlEncode(token);
 
@@ -178,7 +179,8 @@ public class AuthService : IAuthService
                 Message = "Password change failed.",
                 Errors = result.Errors.Select(e => e.Description).ToList()
             };
-
+        await _emailService.SendAsync(user.Email, "Password Changed !",$"<p> Alert ! Your PaceLMS Account password was changed !</p><p>Ignore if this was you</p>" +
+            $"<p>If not ! Secure your account by logging in here</p><p><a href='http://pacelms.runasp.net'>Login</a></p>");
         return new ApiResponse<string> { Success = true, Message = "Password changed." };
     }
 }

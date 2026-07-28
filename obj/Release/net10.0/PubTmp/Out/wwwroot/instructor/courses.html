@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - My Courses (Instructor)</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <div class="page-header">
+        <h1>My Courses</h1>
+        <a class="btn" href="/instructor/create-course.html">+ Create New Course</a>
+    </div>
+
+    <input type="text" id="courseSearch" class="mb-3" placeholder="Search my courses..." />
+
+    <!-- JS fills this div with one BorderGlow card per course -->
+    <div id="coursesList"></div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/instructor/courses.js"></script>
+</body>
+</html>

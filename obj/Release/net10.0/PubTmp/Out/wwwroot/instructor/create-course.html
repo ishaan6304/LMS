@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Create Course (Instructor)</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <div class="page-header">
+        <h1>Create Course</h1>
+        <a class="btn btn-sm" href="/instructor/courses.html">&larr; Back to My Courses</a>
+    </div>
+
+    <div class="border-glow-card form-card mb-4">
+        <p id="courseAlert"></p>
+
+        <form id="createCourseForm">
+            <label>Title</label>
+            <input type="text" id="courseTitle" required />
+
+            <label>Short Description</label>
+            <input type="text" id="courseShortDescription" />
+
+            <label>Description</label>
+            <textarea id="courseDescription" required></textarea>
+
+            <label>Thumbnail Image Link (optional)</label>
+            <input type="url" id="courseThumbnailUrl" />
+
+            <label>Price</label>
+            <input type="number" id="coursePrice" value="0" />
+
+            <label>Duration (hours)</label>
+            <input type="number" id="courseDurationHours" value="1" />
+
+            <label>Category</label>
+            <!-- filled by JS with the dynamic category list -->
+            <select id="courseCategory"></select>
+
+            <label>Level</label>
+            <select id="courseLevel">
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+            </select>
+
+            <label>Language</label>
+            <select id="courseLanguage">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Kannada</option>
+            </select>
+
+            <button type="submit">Create Course</button>
+        </form>
+    </div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/instructor/create-course.js"></script>
+</body>
+</html>

@@ -77,7 +77,6 @@ public class QnaService : IQnaService
 
         _context.CourseQuestions.Add(question);
         await _context.SaveChangesAsync();
-
         return new ApiResponse<string>
         {
             Success = true,
@@ -184,7 +183,6 @@ public class QnaService : IQnaService
         question.AnsweredAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
-
         return new ApiResponse<string>
         {
             Success = true,

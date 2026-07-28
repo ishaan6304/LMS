@@ -6,8 +6,6 @@ public class AskQuestionRequest
 {
     [Required]
     public int CourseId { get; set; }
-
-    //          optional - null means "about the whole course"          //
     public int? ChapterId { get; set; }
 
     [Required]

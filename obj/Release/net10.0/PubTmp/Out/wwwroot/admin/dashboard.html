@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+
+<!-- admin keeps the default Lightfall background + a desktop-style launcher -->
+<body>
+
+    <!-- filled by renderNavbar() in api.js -->
+    <div id="navbar"></div>
+
+    <h1 id="welcomeText"></h1>
+
+    <!-- stats from GET /api/dashboard/admin, shown as BorderGlow cards -->
+    <div class="stats-row">
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statStudents">-</div>
+            <div class="stat-label">Students</div>
+        </div>
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statInstructors">-</div>
+            <div class="stat-label">Instructors</div>
+        </div>
+        <div class="border-glow-card stat-card">
+            <div class="stat-number" id="statCourses">-</div>
+            <div class="stat-label">Courses</div>
+        </div>
+    </div>
+
+    <h2>Control Center</h2>
+
+    <!-- Dock-style desktop icons: they magnify near the cursor (effects.js) -->
+    <div class="desktop">
+        <a class="desktop-icon" href="/admin/users.html">
+            <div class="icon-tile">👥</div>
+            <span class="label">All Users</span>
+        </a>
+        <a class="desktop-icon" href="/admin/create-user.html">
+            <div class="icon-tile">➕</div>
+            <span class="label">Create User</span>
+        </a>
+        <a class="desktop-icon" href="/admin/courses.html">
+            <div class="icon-tile">📚</div>
+            <span class="label">All Courses</span>
+        </a>
+        <a class="desktop-icon" href="/admin/create-course.html">
+            <div class="icon-tile">📝</div>
+            <span class="label">Create Course</span>
+        </a>
+        <a class="desktop-icon" href="/admin/categories.html">
+            <div class="icon-tile">🏷️</div>
+            <span class="label">Categories</span>
+        </a>
+        <a class="desktop-icon" href="/admin/roles.html">
+            <div class="icon-tile">🛡️</div>
+            <span class="label">Roles</span>
+        </a>
+        <a class="desktop-icon" href="/admin/assign.html">
+            <div class="icon-tile">🎯</div>
+            <span class="label">Assign</span>
+        </a>
+        <a class="desktop-icon" href="/profile.html">
+            <div class="icon-tile">👤</div>
+            <span class="label">My Profile</span>
+        </a>
+    </div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Create User (Admin)</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <div class="page-header">
+        <h1>Create User</h1>
+        <a class="btn btn-sm" href="/admin/users.html">&larr; Back to All Users</a>
+    </div>
+
+    <div class="border-glow-card form-card mb-4">
+        <p id="userAlert"></p>
+
+        <form id="createUserForm">
+            <label>First Name</label>
+            <input type="text" id="userFirstName" required />
+
+            <label>Last Name</label>
+            <input type="text" id="userLastName" required />
+
+            <label>Email</label>
+            <input type="email" id="userEmail" required />
+
+            <label>Password</label>
+            <input type="password" id="userPassword" required />
+
+            <label>Role</label>
+            <select id="userRole">
+
+            </select>
+
+
+            <button type="submit">Create User</button>
+        </form>
+    </div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin/create-user.js"></script>
+</body>
+</html>

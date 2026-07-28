@@ -13,4 +13,7 @@ public class ChapterContentDto
     public int DisplayOrder { get; set; }
 
     public bool IsCompleted { get; set; }
+    public int WatchedSeconds { get; set; }
+
+    public int DurationSeconds { get; set; }
 }

@@ -169,8 +169,7 @@ public class EnrollmentService : IEnrollmentService
 
         if (existing != null)
         {
-            var message = existing.Status == EnrollmentStatus.Pending
-                ? "You have already requested to enroll in this course. Please wait for approval."
+            var message = existing.Status == EnrollmentStatus.Pending ? "You have already requested to enroll in this course. Please wait for approval."
                 : "You are already enrolled in this course.";
 
             return new ApiResponse<string> { Success = false, Message = message };
@@ -338,10 +337,9 @@ public class EnrollmentService : IEnrollmentService
 
         //                               compute progress percent                               //
 
-        var completedIds = await _context.ContentProgresses
-            .Where(p => p.StudentId == studentId)
-            .Select(p => p.ContentId)
-            .ToListAsync();
+        var progressRows = await _context.ContentProgresses
+    .Where(p => p.StudentId == studentId)
+    .ToListAsync();
 
         var myCourses = new List<MyCourseDto>();
 
@@ -352,11 +350,24 @@ public class EnrollmentService : IEnrollmentService
                 .Select(cc => cc.ChapterContentId)
                 .ToList();
 
-            var doneCount = contentIds.Count(id => completedIds.Contains(id));
+
+            double doneFraction = 0;
+
+            foreach (var id in contentIds)
+            {
+                var row = progressRows.FirstOrDefault(p => p.ContentId == id);
+
+                if (row == null) continue;
+
+                if (row.CompletedOn != null)
+                    doneFraction += 1;
+                else if (row.DurationSeconds > 0)
+                    doneFraction += Math.Min(1.0, (double)row.WatchedSeconds / row.DurationSeconds);
+            }
 
             var progressPercentage = contentIds.Count == 0
                 ? 0
-                : (int)Math.Round(doneCount * 100.0 / contentIds.Count);
+                : (int)Math.Round(doneFraction * 100.0 / contentIds.Count);
 
             myCourses.Add(new MyCourseDto
             {
@@ -413,8 +424,8 @@ public class EnrollmentService : IEnrollmentService
                 {
                     EnrollmentId = e.EnrollmentId,
                     StudentName = u.FirstName + " " + u.LastName,
-                    CourseProgress = e.ProgressPercentage,
-                    Email = u.Email
+                    Email = u.Email!,
+                    ProgressPercentage = (int)Math.Round(e.ProgressPercentage)
                 })
             .ToListAsync();
 

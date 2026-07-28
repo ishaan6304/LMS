@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Enrollment Requests</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1>Enrollment Requests</h1>
+    <p class="text-muted small mb-4">Students asking to enroll in your courses. Approving moves the course into their dashboard and emails them.</p>
+
+    <div id="pageAlert" class="d-none"></div>
+
+    <div class="border-glow-card">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr><th>Student</th><th>Email</th><th>Course</th><th>Requested</th><th class="text-end">Action</th></tr>
+                </thead>
+                <tbody id="requestsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/instructor/requests.js"></script>
+</body>
+</html>

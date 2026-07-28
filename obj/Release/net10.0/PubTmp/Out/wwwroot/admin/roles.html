@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LMS - Manage Roles (Admin)</title>
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1>Manage Roles</h1>
+
+    <p id="pageAlert"></p>
+
+    <div class="border-glow-card form-card mb-4">
+        <h2>Add a Role</h2>
+        <form id="createRoleForm" class="inline-form">
+            <input type="text" id="roleName" required placeholder="e.g. TeachingAssistant" />
+            <button type="submit">Add Role</button>
+        </form>
+        <p class="text-muted small mb-0 mt-2">Note: users with a new custom role can log in, but they only get the profile page - there is no dashboard for custom roles yet.</p>
+    </div>
+
+    <h2>Existing Roles</h2>
+
+    <!-- JS fills this with one small BorderGlow card per role -->
+    <div id="rolesList" class="chip-row"></div>
+
+    <script src="/js/fx/effects.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin/roles.js"></script>
+</body>
+</html>
