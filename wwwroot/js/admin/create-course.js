@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/admin/courses.html");
+    renderNavbar(user, "/Admin/Courses");
 
     await loadInstructorDropdown();
     await loadCategoryDropdown();
@@ -70,7 +70,7 @@ document.getElementById("createCourseForm").addEventListener("submit", async fun
 
     if (result.success) {
         alert(result.message);
-        window.location.href = "/admin/courses.html";
+        window.location.href = "/Admin/Courses";
     } else {
         showAlert("courseAlert", result.message, "danger");
     }

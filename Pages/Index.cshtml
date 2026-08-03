@@ -1,0 +1,36 @@
+@page
+@{
+    Layout = "_LayoutAuth";
+    ViewData["Title"] = "Login";
+}
+
+<div class="auth-page">
+
+    <div class="auth-brand">
+        <h1>📚 LMS</h1>
+        <p>Learn. Build. Grow.</p>
+    </div>
+
+    <!-- transparent card on the RIGHT - the waves stay visible through it -->
+    <form id="loginForm" class="auth-card">
+        <h2>Welcome back</h2>
+
+        <!-- JS writes error/success text in here -->
+        <p id="loginAlert"></p>
+
+        <label>Email</label>
+        <input type="email" id="loginEmail" required />
+
+        <label>Password</label>
+        <input type="password" id="loginPassword" required />
+
+        <button type="submit" class="w-100">Login</button>
+
+        <a href="/ForgotPassword" class="auth-link">Forgot password?</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/login.js"></script>
+}

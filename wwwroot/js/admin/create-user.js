@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    await renderNavbar(user, "/admin/users.html");
+    await renderNavbar(user, "/Admin/Users");
     await loadDropdowns();
 });
 //           render roles
@@ -52,7 +52,7 @@ document.getElementById("createUserForm").addEventListener("submit", async funct
 
     if (result.success) {
         alert(result.message);
-        window.location.href = "/admin/users.html";
+        window.location.href = "/Admin/Users";
     } else {
         const errorText = result.errors && result.errors.length > 0 ? result.errors.join(" ") : result.message;
         showAlert("userAlert", errorText, "danger");

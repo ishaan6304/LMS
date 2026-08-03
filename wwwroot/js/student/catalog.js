@@ -1,11 +1,11 @@
-﻿//                               page load                               //
+//                               page load                               //
 
 window.addEventListener("DOMContentLoaded", async function () {
     const user = await requireLogin("Student");
 
     if (!user) return;
 
-    renderNavbar(user, "/student/catalog.html");
+    renderNavbar(user, "/Student/Catalog");
 
     await loadCatalog();
 
@@ -52,7 +52,7 @@ async function loadCatalog(searchTerm) {
                         <p class="text-muted small mb-2">${escapeHtml(course.shortDescription || "")}</p>
                         <small class="text-muted mb-3">By ${escapeHtml(course.instructorName)} \u2022 ${escapeHtml(course.category)} \u2022 ${escapeHtml(course.level)} \u2022 ${course.chapterCount} chapter(s)</small>
                         <div class="mt-auto d-flex gap-2">
-                            <a class="btn btn-outline-primary btn-sm" href="/course.html?id=${course.courseId}">View / Audit</a>
+                            <a class="btn btn-outline-primary btn-sm" href="/Course?id=${course.courseId}">View / Audit</a>
                             ${enrollButton(course)}
                         </div>
                     </div>
@@ -81,7 +81,7 @@ function statusBadge(status) {
 
 function enrollButton(course) {
     if (course.enrollmentStatus === "Active" || course.enrollmentStatus === "Completed") {
-        return `<a class="btn btn-success btn-sm" href="/course.html?id=${course.courseId}">Continue Learning</a>`;
+        return `<a class="btn btn-success btn-sm" href="/Course?id=${course.courseId}">Continue Learning</a>`;
     }
 
     if (course.enrollmentStatus === "Pending") {

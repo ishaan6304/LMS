@@ -65,14 +65,14 @@ async function requireLogin(expectedRole) {
     const result = await apiGet("/api/auth/me");
 
     if (!result.success) {
-        window.location.href = "/index.html";
+        window.location.href = "/";
         return null;
     }
 
     const user = result.data;
 
     if (expectedRole && user.role !== expectedRole) {
-        window.location.href = "/index.html";
+        window.location.href = "/";
         return null;
     }
 
@@ -81,10 +81,70 @@ async function requireLogin(expectedRole) {
 
 //                               logout                               //
 
+function showConfirm(message, title = "Confirm Action", confirmText = "Confirm", isDanger = true) {
+    return new Promise((resolve) => {
+        let overlay = document.getElementById("confirmModalOverlay");
+        if (!overlay) {
+            overlay = document.createElement("div");
+            overlay.id = "confirmModalOverlay";
+            overlay.className = "confirm-modal-overlay";
+            overlay.innerHTML = `
+                <div class="confirm-modal-card">
+                    <div class="confirm-modal-header">
+                        <span class="confirm-modal-icon" id="confirmModalIcon">⚠️</span>
+                        <h3 class="confirm-modal-title" id="confirmModalTitle">Confirm Action</h3>
+                    </div>
+                    <div class="confirm-modal-body" id="confirmModalBody"></div>
+                    <div class="confirm-modal-actions">
+                        <button class="confirm-modal-btn cancel" id="confirmModalCancelBtn">Cancel</button>
+                        <button class="confirm-modal-btn confirm-danger" id="confirmModalOkBtn">Confirm</button>
+                    </div>
+                </div>`;
+            document.body.appendChild(overlay);
+        }
+
+        const titleEl = document.getElementById("confirmModalTitle");
+        const bodyEl = document.getElementById("confirmModalBody");
+        const iconEl = document.getElementById("confirmModalIcon");
+        const okBtn = document.getElementById("confirmModalOkBtn");
+        const cancelBtn = document.getElementById("confirmModalCancelBtn");
+
+        titleEl.textContent = title;
+        bodyEl.textContent = message;
+        iconEl.textContent = isDanger ? "⚠️" : "❓";
+
+        okBtn.textContent = confirmText;
+        okBtn.className = isDanger ? "confirm-modal-btn confirm-danger" : "confirm-modal-btn confirm-primary";
+
+        function cleanup(result) {
+            overlay.classList.remove("active");
+            okBtn.removeEventListener("click", onOk);
+            cancelBtn.removeEventListener("click", onCancel);
+            overlay.removeEventListener("click", onOverlay);
+            document.removeEventListener("keydown", onKeyDown);
+            resolve(result);
+        }
+
+        function onOk() { cleanup(true); }
+        function onCancel() { cleanup(false); }
+        function onOverlay(e) { if (e.target === overlay) cleanup(false); }
+        function onKeyDown(e) { if (e.key === "Escape") cleanup(false); }
+
+        okBtn.addEventListener("click", onOk);
+        cancelBtn.addEventListener("click", onCancel);
+        overlay.addEventListener("click", onOverlay);
+        document.addEventListener("keydown", onKeyDown);
+
+        requestAnimationFrame(() => overlay.classList.add("active"));
+        okBtn.focus();
+    });
+}
+
 async function logout() {
+    if (!(await showConfirm("Are you sure you want to log out?", "Log Out", "Log Out", true))) return;
     await apiPost("/api/auth/logout", {});
     csrfToken = null;
-    window.location.href = "/index.html";
+    window.location.href = "/";
 }
 
 //                               navbar                               //
@@ -92,22 +152,22 @@ async function logout() {
 function renderNavbar(user, activePage) {
     const linksByRole = {
         Admin: [
-            ["/admin/dashboard.html", "Dashboard"],
-            ["/admin/users.html", "Users"],
-            ["/admin/courses.html", "Courses"],
-            ["/admin/assign.html", "Assign"]
+            ["/Admin/Dashboard", "Dashboard"],
+            ["/Admin/Users", "Users"],
+            ["/Admin/Courses", "Courses"],
+            ["/Admin/Assign", "Assign"]
         ],
         Instructor: [
-            ["/instructor/dashboard.html", "Dashboard"],
-            ["/instructor/courses.html", "My Courses"],
-            ["/instructor/requests.html", "Requests"],
-            ["/instructor/qna.html", "Q&A"],
-            ["/instructor/assign.html", "Assign"]
+            ["/Instructor/Dashboard", "Dashboard"],
+            ["/Instructor/Courses", "My Courses"],
+            ["/Instructor/Requests", "Requests"],
+            ["/Instructor/Qna", "Q&A"],
+            ["/Instructor/Assign", "Assign"]
         ],
         Student: [
-            ["/student/dashboard.html", "Dashboard"],
-            ["/student/catalog.html", "Browse Courses"],
-            ["/student/qna.html", "Q&A"]
+            ["/Student/Dashboard", "Dashboard"],
+            ["/Student/Catalog", "Browse Courses"],
+            ["/Student/Qna", "Q&A"]
         ]
     };
 
@@ -123,121 +183,68 @@ function renderNavbar(user, activePage) {
         linksHtml += `<li class="${active}"><a href="${href}">${label}</a></li>`;
     }
 
-    const profileActive = activePage === "/profile.html" ? "active" : "";
+    const profileActive = activePage === "/Profile" ? "active" : "";
 
     // GooeyNav (react bit) markup: the two .effect spans are the gooey
     // blob + text flash layers that /js/fx/effects.js animates.
     document.getElementById("navbar").innerHTML = `
         <header class="topbar">
-            <a class="brand" href="${links.length > 0 ? links[0][0] : "/index.html"}">\uD83D\uDCDA PaceLMS</a>
+            <a class="brand" href="${links.length > 0 ? links[0][0] : "/"}">📚 PaceLMS</a>
+            
+            <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+
             <div class="gooey-nav-container">
                 <nav>
                     <ul>
                         ${linksHtml}
-                        <li class="${profileActive}"><a href="/profile.html">My Profile</a></li>
+                        <li class="${profileActive}"><a href="/Profile">My Profile</a></li>
                     </ul>
                 </nav>
                 <span class="effect filter"></span>
                 <span class="effect text"></span>
             </div>
+
             <div class="topbar-right">
                 <span class="topbar-user">Hi, ${escapeHtml(user.firstName)} \u2022 ${escapeHtml(user.role)}</span>
                 <button class="btn-sm danger" onclick="logout()">Logout</button>
             </div>
         </header>`;
 
-    // wire up the gooey pill + particle burst
-    if (window.initGooeyNav) window.initGooeyNav();
+    const toggleBtn = document.getElementById("mobileNavToggle");
+    const topbarEl = document.querySelector(".topbar");
+    if (toggleBtn && topbarEl) {
+        toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = topbarEl.classList.toggle("is-open");
+            toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
 
-    renderBreadcrumbs(user);
-}
+        const navLinks = topbarEl.querySelectorAll(".gooey-nav-container nav a");
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                topbarEl.classList.remove("is-open");
+                toggleBtn.setAttribute("aria-expanded", "false");
+            });
+        });
 
-//                               breadcrumbs                               //
-
-// Every page points to its parent page. We start at the current page and walk
-// UP the tree until we hit the dashboard, then print the trail in order:
-// Dashboard > Courses > Create Course. Last crumb = the page you are on.
-
-function renderBreadcrumbs(user) {
-    const navbar = document.getElementById("navbar");
-
-    if (!navbar || document.querySelector(".breadcrumbs")) return;
-
-    const home = {
-        "Admin": "/admin/dashboard.html",
-        "Instructor": "/instructor/dashboard.html",
-        "Student": "/student/dashboard.html"
-    }[user.role];
-
-    if (!home) return;
-
-    //          shared pages live under a different parent per role          //
-
-    const coursesPage = user.role === "Admin" ? "/admin/courses.html" : "/instructor/courses.html";
-
-    const tree = {
-        "/admin/users.html": { label: "Users", parent: home },
-        "/admin/create-user.html": { label: "Create User", parent: "/admin/users.html" },
-        "/admin/courses.html": { label: "Courses", parent: home },
-        "/admin/create-course.html": { label: "Create Course", parent: "/admin/courses.html" },
-        "/admin/assign.html": { label: "Assign Course", parent: home },
-        "/admin/categories.html": { label: "Categories", parent: home },
-        "/admin/roles.html": { label: "Roles", parent: home },
-        "/instructor/courses.html": { label: "My Courses", parent: home },
-        "/instructor/create-course.html": { label: "Create Course", parent: "/instructor/courses.html" },
-        "/instructor/requests.html": { label: "Enroll Requests", parent: home },
-        "/instructor/qna.html": { label: "Q&A", parent: home },
-        "/instructor/assign.html": { label: "Assign Course", parent: home },
-        "/student/catalog.html": { label: "Browse Courses", parent: home },
-        "/student/qna.html": { label: "Q&A", parent: home },
-        "/profile.html": { label: "My Profile", parent: home },
-        "/manage-course.html": { label: "Course", parent: coursesPage },
-        "/course.html": { label: "Course", parent: user.role === "Student" ? "/student/catalog.html" : coursesPage }
-    };
-
-    tree[home] = { label: "Dashboard", parent: null };
-
-    const path = window.location.pathname;
-
-    // unknown page, or we are already at the root -> nothing to show
-    if (!tree[path] || path === home) return;
-
-    //          walk up the tree collecting crumbs (root ends up first)          //
-
-    const trail = [];
-    let current = path;
-    let guard = 0;
-
-    while (current && tree[current] && guard < 10) {
-        trail.unshift({ href: current, label: tree[current].label });
-        current = tree[current].parent;
-        guard = guard + 1;
-    }
-
-    let html = "";
-
-    for (let i = 0; i < trail.length; i++) {
-        if (i === trail.length - 1) {
-            html += `<span class="crumb-current">${trail[i].label}</span>`;
-        } else {
-            html += `<a class="crumb" href="${trail[i].href}">${trail[i].label}</a><span class="crumb-sep">\u203A</span>`;
+        if (!window._mobileNavOutsideClickWired) {
+            window._mobileNavOutsideClickWired = true;
+            document.addEventListener("click", (e) => {
+                const currentTopbar = document.querySelector(".topbar");
+                const currentBtn = document.getElementById("mobileNavToggle");
+                if (currentTopbar && currentTopbar.classList.contains("is-open") && !currentTopbar.contains(e.target)) {
+                    currentTopbar.classList.remove("is-open");
+                    if (currentBtn) currentBtn.setAttribute("aria-expanded", "false");
+                }
+            });
         }
     }
 
-    const nav = document.createElement("nav");
-    nav.className = "breadcrumbs";
-    nav.setAttribute("aria-label", "breadcrumb");
-    nav.innerHTML = html;
-
-    navbar.insertAdjacentElement("afterend", nav);
-}
-
-//          course pages call this once they know the real course title          //
-
-function setBreadcrumbLeaf(label) {
-    const leaf = document.querySelector(".breadcrumbs .crumb-current");
-
-    if (leaf) leaf.textContent = label;
+    if (window.initGooeyNav) window.initGooeyNav();
 }
 
 //                               show alert message                               //

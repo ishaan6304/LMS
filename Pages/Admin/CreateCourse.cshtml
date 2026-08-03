@@ -1,0 +1,60 @@
+@page
+@{
+    ViewData["Title"] = "Create Course (Admin)";
+}
+
+<div class="page-header">
+    <h1>Create Course</h1>
+    <a class="btn btn-sm" href="/Admin/Courses">&larr; Back to All Courses</a>
+</div>
+
+<div class="border-glow-card form-card mb-4">
+    <p id="courseAlert"></p>
+
+    <form id="createCourseForm">
+        <label>Title</label>
+        <input type="text" id="courseTitle" required />
+
+        <label>Short Description</label>
+        <input type="text" id="courseShortDescription" />
+
+        <label>Description</label>
+        <textarea id="courseDescription" required></textarea>
+
+        <label>Thumbnail Image Link (optional)</label>
+        <input type="url" id="courseThumbnailUrl" />
+
+        <label>Instructor</label>
+        <select id="courseInstructor" required></select>
+
+        <label>Price</label>
+        <input type="number" id="coursePrice" value="0" />
+
+        <label>Duration (hours)</label>
+        <input type="number" id="courseDurationHours" value="1" />
+
+        <label>Category</label>
+        <!-- filled by JS with the dynamic category list -->
+        <select id="courseCategory"></select>
+
+        <label>Level</label>
+        <select id="courseLevel">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+        </select>
+
+        <label>Language</label>
+        <select id="courseLanguage">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Kannada</option>
+        </select>
+
+        <button type="submit">Create Course</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/create-course.js"></script>
+}

@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/admin/assign.html");
+    renderNavbar(user, "/Admin/Assign");
 
     await loadDropdowns();
 });

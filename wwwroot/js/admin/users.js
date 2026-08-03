@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/admin/users.html");
+    renderNavbar(user, "/Admin/Users");
 
     await loadUsers();
 

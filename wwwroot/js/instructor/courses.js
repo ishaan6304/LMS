@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/instructor/courses.html");
+    renderNavbar(user, "/Instructor/Courses");
 
     await loadCourses();
 
@@ -57,7 +57,7 @@ async function loadCourses(searchTerm) {
                         <small class="text-muted">${escapeHtml(course.category)} \u2022 ${escapeHtml(course.level)} \u2022 ${escapeHtml(course.language)} \u2022 ${course.chapterCount} chapter(s)</small>
                     </div>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-outline-primary btn-sm" href="/manage-course.html?id=${course.courseId}">Manage / Edit</a>
+                        <a class="btn btn-outline-primary btn-sm" href="/ManageCourse?id=${course.courseId}">Manage / Edit</a>
                         ${disableButton}
                     </div>
                 </div>
@@ -70,7 +70,7 @@ async function loadCourses(searchTerm) {
 //                               disable course (soft delete)                               //
 
 async function disableCourse(courseId) {
-    if (!confirm("Disable this course? Students will no longer see it. Only an admin can re-enable it.")) return;
+    if (!(await showConfirm("Disable this course? Students will no longer see it. Only an admin can re-enable it.", "Disable Course", "Disable", true))) return;
 
     const result = await apiDelete("/api/courses/" + courseId);
 

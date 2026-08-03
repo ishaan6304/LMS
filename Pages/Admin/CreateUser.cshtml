@@ -1,0 +1,39 @@
+@page
+@{
+    ViewData["Title"] = "Create User (Admin)";
+}
+
+<div class="page-header">
+    <h1>Create User</h1>
+    <a class="btn btn-sm" href="/Admin/Users">&larr; Back to All Users</a>
+</div>
+
+<div class="border-glow-card form-card mb-4">
+    <p id="userAlert"></p>
+
+    <form id="createUserForm">
+        <label>First Name</label>
+        <input type="text" id="userFirstName" required />
+
+        <label>Last Name</label>
+        <input type="text" id="userLastName" required />
+
+        <label>Email</label>
+        <input type="email" id="userEmail" required />
+
+        <label>Password</label>
+        <input type="password" id="userPassword" required />
+
+        <label>Role</label>
+        <select id="userRole">
+
+        </select>
+
+
+        <button type="submit">Create User</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/create-user.js"></script>
+}

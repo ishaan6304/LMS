@@ -1,4 +1,4 @@
-﻿//                               reset password                               //
+//                               reset password                               //
 
 const params = new URLSearchParams(window.location.search);
 const email = params.get("email");
@@ -21,5 +21,5 @@ document.getElementById("resetForm").addEventListener("submit", async function (
     }
 
     showAlert("pageAlert", result.message + " Redirecting...", "success");
-    setTimeout(function () { window.location.href = "/index.html"; }, 2000);
+    setTimeout(function () { window.location.href = "/"; }, 2000);
 });

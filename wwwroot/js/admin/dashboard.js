@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     if (!user) return;
 
     // 2. Build the navbar into <div id="navbar">
-    renderNavbar(user, "/admin/dashboard.html");
+    renderNavbar(user, "/Admin/Dashboard");
 
     // 3. Put the user's name into the page
     document.getElementById("welcomeText").textContent = "Welcome back, " + user.firstName;

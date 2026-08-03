@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/instructor/dashboard.html");
+    renderNavbar(user, "/Instructor/Dashboard");
 
     document.getElementById("welcomeText").textContent = "Welcome back, " + user.firstName;
 
@@ -34,7 +34,7 @@ async function loadDashboard() {
     for (const c of result.data.courseStats) {
         rowsHtml += `
             <tr>
-                <td><a href="/manage-course.html?id=${c.courseId}">${escapeHtml(c.title)}</a></td>
+                <td><a href="/ManageCourse?id=${c.courseId}">${escapeHtml(c.title)}</a></td>
                 <td>${c.studentCount}</td>
             </tr>`;
     }

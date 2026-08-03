@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ishaa\\source\\repos\\LMS2\\LMS\\LMS.csproj": {}
+    "C:\\Users\\ishaa\\source\\repos\\LMS3\\LMS\\LMS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ishaa\\source\\repos\\LMS2\\LMS\\LMS.csproj": {
+    "C:\\Users\\ishaa\\source\\repos\\LMS3\\LMS\\LMS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ishaa\\source\\repos\\LMS2\\LMS\\LMS.csproj",
+        "projectUniqueName": "C:\\Users\\ishaa\\source\\repos\\LMS3\\LMS\\LMS.csproj",
         "projectName": "LMS",
-        "projectPath": "C:\\Users\\ishaa\\source\\repos\\LMS2\\LMS\\LMS.csproj",
+        "projectPath": "C:\\Users\\ishaa\\source\\repos\\LMS3\\LMS\\LMS.csproj",
         "packagesPath": "C:\\Users\\ishaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ishaa\\source\\repos\\LMS2\\LMS\\obj\\",
+        "outputPath": "C:\\Users\\ishaa\\source\\repos\\LMS3\\LMS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

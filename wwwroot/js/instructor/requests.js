@@ -1,4 +1,4 @@
-﻿//                               page load                               //
+//                               page load                               //
 
 window.addEventListener("DOMContentLoaded", async function () {
     const user = await requireLogin();
@@ -8,11 +8,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     //          instructors and admins can both review requests          //
 
     if (user.role !== "Instructor" && user.role !== "Admin") {
-        window.location.href = "/index.html";
+        window.location.href = "/";
         return;
     }
 
-    renderNavbar(user, "/instructor/requests.html");
+    renderNavbar(user, "/Instructor/Requests");
 
     await loadRequests();
 });
@@ -68,7 +68,7 @@ async function approveRequest(enrollmentId) {
 //                               reject                               //
 
 async function rejectRequest(enrollmentId) {
-    if (!confirm("Reject this enrollment request?")) return;
+    if (!(await showConfirm("Reject this enrollment request?", "Reject Request", "Reject", true))) return;
 
     const result = await apiPost("/api/enrollments/requests/" + enrollmentId + "/reject", {});
 

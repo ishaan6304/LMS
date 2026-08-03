@@ -1,0 +1,25 @@
+@page
+@{
+    ViewData["Title"] = "Assign Courses (Instructor)";
+}
+
+<h1>Assign Courses</h1>
+
+<div class="border-glow-card form-card mb-4">
+    <h2>Assign Course to Student</h2>
+    <p id="assignAlert"></p>
+
+    <form id="assignForm">
+        <label>Student</label>
+        <select id="assignStudent" required></select>
+
+        <label>Course (only your courses appear here)</label>
+        <select id="assignCourse" required></select>
+
+        <button type="submit">Assign Course</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/instructor/assign.js"></script>
+}

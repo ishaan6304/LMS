@@ -8,11 +8,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     //          this page is for instructors AND admins          //
 
     if (user.role !== "Instructor" && user.role !== "Admin") {
-        window.location.href = "/index.html";
+        window.location.href = "/";
         return;
     }
 
-    renderNavbar(user, "/instructor/qna.html");
+    renderNavbar(user, "/Instructor/Qna");
 
     await loadQuestions();
 });
@@ -53,7 +53,7 @@ async function loadQuestions() {
         html += `
             <div class="border-glow-card mb-3">
                 <p><b>${escapeHtml(q.studentName)}</b> asked on ${askedOn}</p>
-                <p>Course: <a href="/course.html?id=${q.courseId}">${escapeHtml(q.courseTitle)}</a>${chapterText}</p>
+                <p>Course: <a href="/Course?id=${q.courseId}">${escapeHtml(q.courseTitle)}</a>${chapterText}</p>
                 <p><b>Q:</b> ${escapeHtml(q.questionText)}</p>
                 ${answerArea}
             </div>`;

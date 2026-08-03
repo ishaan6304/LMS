@@ -1,0 +1,66 @@
+@page
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!-- admin keeps the default Lightfall background + a desktop-style launcher -->
+
+<h1 id="welcomeText"></h1>
+
+<!-- stats from GET /api/dashboard/admin, shown as BorderGlow cards -->
+<div class="stats-row">
+    <div class="border-glow-card stat-card">
+        <div class="stat-number" id="statStudents">-</div>
+        <div class="stat-label">Students</div>
+    </div>
+    <div class="border-glow-card stat-card">
+        <div class="stat-number" id="statInstructors">-</div>
+        <div class="stat-label">Instructors</div>
+    </div>
+    <div class="border-glow-card stat-card">
+        <div class="stat-number" id="statCourses">-</div>
+        <div class="stat-label">Courses</div>
+    </div>
+</div>
+
+<h2>Control Center</h2>
+
+<!-- Dock-style desktop icons: they magnify near the cursor (effects.js) -->
+<div class="desktop">
+    <a class="desktop-icon" href="/Admin/Users">
+        <div class="icon-tile">👥</div>
+        <span class="label">All Users</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/CreateUser">
+        <div class="icon-tile">➕</div>
+        <span class="label">Create User</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/Courses">
+        <div class="icon-tile">📚</div>
+        <span class="label">All Courses</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/CreateCourse">
+        <div class="icon-tile">📝</div>
+        <span class="label">Create Course</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/Categories">
+        <div class="icon-tile">🏷️</div>
+        <span class="label">Categories</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/Roles">
+        <div class="icon-tile">🛡️</div>
+        <span class="label">Roles</span>
+    </a>
+    <a class="desktop-icon" href="/Admin/Assign">
+        <div class="icon-tile">🎯</div>
+        <span class="label">Assign</span>
+    </a>
+    <a class="desktop-icon" href="/Profile">
+        <div class="icon-tile">👤</div>
+        <span class="label">My Profile</span>
+    </a>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/dashboard.js"></script>
+}

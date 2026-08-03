@@ -25,6 +25,8 @@ builder.Services.AddControllersWithViews(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Services.AddRazorPages();
+
 
 ////////////////////////////////////
 
@@ -87,7 +89,6 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -95,5 +96,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();

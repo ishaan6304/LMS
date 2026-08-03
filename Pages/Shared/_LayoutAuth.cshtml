@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - LMS</title>
+    <link rel="stylesheet" href="~/css/theme.css" />
+    @RenderSection("Styles", required: false)
+</head>
+
+<!-- data-bg="waves" -> effects.js draws the full-page line waves background -->
+<body class="auth" data-bg="waves">
+
+    @RenderBody()
+
+    <script src="~/js/fx/effects.js"></script>
+    <script src="~/js/api.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

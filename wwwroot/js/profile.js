@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/profile.html");
+    renderNavbar(user, "/Profile");
 
     // Prefill: API object -> input values (the reverse of a form submit)
     document.getElementById("profileEmail").value = user.email;

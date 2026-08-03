@@ -1,0 +1,51 @@
+@page
+@{
+    ViewData["Title"] = "Course";
+}
+
+@section Styles {
+    <style>
+        .collapsing {
+            transition: height .45s cubic-bezier(.22,1,.36,1);
+        }
+
+        .accordion-body {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .accordion-collapse.show .accordion-body {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .accordion-button::after {
+            content: "+";
+            background: none !important;
+            transition: transform .3s ease;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            transform: rotate(45deg);
+        }
+    </style>
+}
+
+<p id="pageAlert"></p>
+
+<h1 id="courseTitle"></h1>
+
+<div class="border-glow-card mb-4">
+    <p id="courseMeta" class="text-muted small mb-2"></p>
+    <div id="enrollArea" class="mb-3"></div>
+    <p id="courseDescription" class="mb-0"></p>
+</div>
+
+<h2>Chapters</h2>
+<!-- JS builds chapters + contents (videos/assignments) in here -->
+<div id="chaptersAccordion"></div>
+
+@section Scripts {
+    <script src="~/js/course.js"></script>
+}

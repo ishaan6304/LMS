@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/student/dashboard.html");
+    renderNavbar(user, "/Student/Dashboard");
 
     document.getElementById("welcomeText").textContent = "Welcome back, " + user.firstName;
 
@@ -49,7 +49,7 @@ async function loadMyCourses() {
                 <p>${escapeHtml(course.shortDescription || "")}</p>
                 <p>By ${escapeHtml(course.instructorName)} - ${course.chapterCount} chapters - Status: ${escapeHtml(course.status)}</p>
                 <p>Progress: ${course.progressPercentage}%</p>
-                <a class="btn btn-success btn-sm" href="/course.html?id=${course.courseId}">Continue Learning</a>
+                <a class="btn btn-success btn-sm" href="/Course?id=${course.courseId}">Continue Learning</a>
             </div>
             `;
     }

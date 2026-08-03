@@ -1,0 +1,16 @@
+@page
+@{
+    ViewData["Title"] = "Q&A (Instructor)";
+}
+
+<h1>Q&amp;A - Student Questions</h1>
+<p class="text-muted small mb-4">Unanswered questions appear first. Your answer is emailed nowhere - students see it on their Q&amp;A page.</p>
+
+<p id="pageAlert"></p>
+
+<!-- JS fills this div with one BorderGlow card per question -->
+<div id="questionsList"></div>
+
+@section Scripts {
+    <script src="~/js/instructor/qna.js"></script>
+}

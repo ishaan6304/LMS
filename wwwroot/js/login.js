@@ -20,16 +20,16 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const role = result.data;
 
     if (role === "Admin") {
-        window.location.href = "/admin/dashboard.html";
+        window.location.href = "/Admin/Dashboard";
     }
     else if (role === "Instructor") {
-        window.location.href = "/instructor/dashboard.html";
+        window.location.href = "/Instructor/Dashboard";
     }
     else if (role === "Student") {
-        window.location.href = "/student/dashboard.html";
+        window.location.href = "/Student/Dashboard";
     }
     else {
         // custom roles have no dashboard yet -> go to profile
-        window.location.href = "/profile.html";
+        window.location.href = "/Profile";
     }
 });

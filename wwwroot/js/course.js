@@ -4,11 +4,7 @@ const params = new URLSearchParams(window.location.search);
 const courseId = params.get("id");
 
 let currentUser = null;
-let trackingEnabled = false;   // true only for enrolled students
-
-//          one tracker per video, keyed by contentId          //
-//          { player, watched (Set of second-marks), duration, ... }          //
-
+let trackingEnabled = false;   
 const videoTrackers = {};
 let pendingVideos = [];
 let ytApiReady = false;
@@ -28,9 +24,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 //                               load course                               //
 
 async function loadCourse() {
-    // DATA FLOW: GET /api/courses/5 -> { success, data: { title, ..., chapters:
-    //   [ { contents: [ { chapterContentId, contentType, isCompleted,
-    //     watchedSeconds, durationSeconds } ] } ] } }
     const result = await apiGet("/api/courses/" + courseId);
 
     if (!result.success) {
@@ -44,7 +37,8 @@ async function loadCourse() {
     document.getElementById("courseMeta").textContent = "By " + course.instructorName + " \u2022 " + course.category + " \u2022 " + course.level + " \u2022 " + course.language;
     document.getElementById("courseDescription").textContent = course.description;
 
-    setBreadcrumbLeaf(course.title);
+    const leaf = document.querySelector(".breadcrumbs .crumb-current");
+    if (leaf) leaf.textContent = course.title;
 
     renderEnrollArea(course);
 
@@ -79,7 +73,6 @@ async function loadCourse() {
 
             if (content.contentType === "Video") {
 
-                //          videos complete automatically via watch time - no button          //
 
                 if (content.isCompleted) {
                     fractionSum += 1;
@@ -87,11 +80,8 @@ async function loadCourse() {
                     fractionSum += Math.min(1, content.watchedSeconds / content.durationSeconds);
                 }
 
-                const doneBadge = content.isCompleted
-                    ? `<span class="badge bg-success">\u2714 Completed</span>`
-                    : "";
+                const doneBadge = content.isCompleted ? `<span class="badge bg-success">\u2714 Completed</span>` : "";
 
-                //          enablejsapi=1 lets our JS talk to the player          //
 
                 let embed = getYoutubeEmbedUrl(content.contentUrl);
                 embed += (embed.includes("?") ? "&" : "?") + "enablejsapi=1&origin=" + window.location.origin;
@@ -123,9 +113,10 @@ async function loadCourse() {
                             <strong>\uD83C\uDFAC ${escapeHtml(content.title)}</strong>
                             <span id="done-${content.chapterContentId}">${doneBadge}</span>
                         </div>
-                        <></>
-                        <div class="ratio ratio-16x9" style="max-width: 480px;">
-                            <iframe id="player-${content.chapterContentId}" src="${escapeHtml(embed)}" title="${escapeHtml(content.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-embed-wrap">
+                            <div class="ratio ratio-16x9">
+                                <iframe id="player-${content.chapterContentId}" src="${escapeHtml(embed)}" title="${escapeHtml(content.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                         ${progressHtml}
                     </div>`;
@@ -161,7 +152,6 @@ async function loadCourse() {
                         Chapter ${chapter.displayOrder}: ${escapeHtml(chapter.title)}
                     </button>
                 </h2>
-                <></>
                 <div id="chapter-${chapter.chapterId}" class="accordion-collapse collapse ${isFirst ? "show" : ""}" data-bs-parent="#chaptersAccordion">
                     <div class="accordion-body p-0">
                         <div class="list-group list-group-flush">${contentsHtml}</div>
@@ -196,9 +186,6 @@ async function loadCourse() {
 
 //                               youtube iframe api                               //
 
-// DATA FLOW: we load YouTube's iframe_api script -> YouTube calls the global
-// onYouTubeIframeAPIReady() -> we attach a YT.Player to every video iframe.
-// The player lets us read getCurrentTime(), getDuration() and the play state.
 
 function loadYouTubeApi() {
     if (window.YT && window.YT.Player) {
@@ -296,15 +283,9 @@ function tick(contentId) {
         if (d > 0) t.duration = d;
     }
 
-    //          a Set ignores duplicates: skipping ahead adds nothing,          //
-    //          rewatching the same part adds nothing -> honest percent          //
-
     t.watched.add(Math.floor(t.player.getCurrentTime()));
 
     updateContentBar(contentId);
-
-    //          heartbeat: save every 15 seconds of playback          //
-
     t.ticks = t.ticks + 1;
 
     if (t.ticks % 15 === 0) sendWatchTime(contentId);
@@ -420,7 +401,6 @@ async function requestEnroll() {
 //                               toggle progress (assignments only)                               //
 
 async function toggleProgress(contentId) {
-    // DATA FLOW: POST /api/progress/content/9/toggle -> { success, data: { isCompleted, coursePercent } }
     const result = await apiPost("/api/progress/content/" + contentId + "/toggle", {});
 
     if (!result.success) {
@@ -428,7 +408,6 @@ async function toggleProgress(contentId) {
         return;
     }
 
-    //          update the button in place - a full reload would reset the videos          //
 
     const done = result.data && result.data.isCompleted;
 

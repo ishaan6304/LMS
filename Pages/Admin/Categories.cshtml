@@ -1,0 +1,25 @@
+@page
+@{
+    ViewData["Title"] = "Manage Categories (Admin)";
+}
+
+<h1>Manage Categories</h1>
+
+<p id="pageAlert"></p>
+
+<div class="border-glow-card form-card mb-4">
+    <h2>Add a Category</h2>
+    <form id="createCategoryForm" class="inline-form">
+        <input type="text" id="categoryName" required placeholder="e.g. Security" />
+        <button type="submit">Add Category</button>
+    </form>
+</div>
+
+<h2>Existing Categories</h2>
+
+<!-- JS fills this with one small BorderGlow card per category -->
+<div id="categoriesList" class="chip-row"></div>
+
+@section Scripts {
+    <script src="~/js/admin/categories.js"></script>
+}

@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     if (!user) return;
 
     if (user.role !== "Admin" && user.role !== "Instructor") {
-        window.location.href = "/index.html";
+        window.location.href = "/";
         return;
     }
 
@@ -32,7 +32,8 @@ async function loadCourse() {
 
     document.getElementById("courseTitle").textContent = "Manage: " + course.title;
 
-    setBreadcrumbLeaf(course.title);
+    const leaf = document.querySelector(".breadcrumbs .crumb-current");
+    if (leaf) leaf.textContent = course.title;
     document.getElementById("courseMeta").textContent = "By " + course.instructorName + " - " + course.category + " - " + course.level + " - " + course.language;
 
     // Prefill the edit form: API data -> input .value (opposite direction of a submit)
@@ -162,7 +163,7 @@ async function addContent(chapterId) {
 //                               delete chapter                               //
 
 async function deleteChapter(chapterId) {
-    if (!confirm("Delete this chapter and all its content?")) return;
+    if (!(await showConfirm("Delete this chapter and all its content?", "Delete Chapter", "Delete", true))) return;
 
     const result = await apiDelete("/api/chapters/" + chapterId);
 
@@ -177,7 +178,7 @@ async function deleteChapter(chapterId) {
 //                               delete content                               //
 
 async function deleteContent(contentId) {
-    if (!confirm("Delete this content?")) return;
+    if (!(await showConfirm("Delete this content?", "Delete Content", "Delete", true))) return;
 
     const result = await apiDelete("/api/chapters/contents/" + contentId);
 
@@ -221,7 +222,7 @@ async function loadEnrollments() {
 //                               remove student                               //
 
 async function removeStudent(enrollmentId) {
-    if (!confirm("Remove this student from the course?")) return;
+    if (!(await showConfirm("Remove this student from the course?", "Remove Student", "Remove", true))) return;
 
     const result = await apiDelete("/api/enrollments/" + enrollmentId);
 

@@ -1,5 +1,4 @@
 C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\appsettings.Development.json
-C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\appsettings.json
 C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\LMS.staticwebassets.runtime.json
 C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\LMS.staticwebassets.endpoints.json
 C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\LMS.exe
@@ -266,6 +265,7 @@ C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\sf6hjz0o2t-{
 C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\g8wzyeyj20-{0}-qhmdqsebad-qhmdqsebad.gz
 C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\3slb9tabn5-{0}-fmfrau68z3-fmfrau68z3.gz
 C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\cihzlrz4fi-{0}-pno9ove2cs-pno9ove2cs.gz
-C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\jxvpqzgfdm-{0}-8ul5h4ntlj-8ul5h4ntlj.gz
-C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\h5ty4o2asx-{0}-c9mtpxc517-c9mtpxc517.gz
-C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\sivqxctdrp-{0}-45i5v856t1-45i5v856t1.gz
+C:\Users\ishaa\source\repos\LMS2\LMS\bin\Release\net10.0\appsettings.json
+C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\h5ty4o2asx-{0}-wo0hm2u3zk-wo0hm2u3zk.gz
+C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\jxvpqzgfdm-{0}-vatfkjxj4q-vatfkjxj4q.gz
+C:\Users\ishaa\source\repos\LMS2\LMS\obj\Release\net10.0\compressed\sivqxctdrp-{0}-233as4vu22-233as4vu22.gz

@@ -1,0 +1,24 @@
+@page
+@{
+    ViewData["Title"] = "Enrollment Requests";
+}
+
+<h1>Enrollment Requests</h1>
+<p class="text-muted small mb-4">Students asking to enroll in your courses. Approving moves the course into their dashboard and emails them.</p>
+
+<div id="pageAlert" class="d-none"></div>
+
+<div class="border-glow-card">
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr><th>Student</th><th>Email</th><th>Course</th><th>Requested</th><th class="text-end">Action</th></tr>
+            </thead>
+            <tbody id="requestsTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/instructor/requests.js"></script>
+}

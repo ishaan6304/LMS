@@ -1,0 +1,71 @@
+@page
+@{
+    ViewData["Title"] = "Manage Course";
+}
+
+<p id="pageAlert"></p>
+
+<h1 id="courseTitle"></h1>
+<p id="courseMeta" class="text-muted mb-4"></p>
+
+<div class="border-glow-card form-card mb-4">
+    <h2>Edit Course Details</h2>
+    <p id="editAlert"></p>
+
+    <form id="editCourseForm">
+        <label>Title</label>
+        <input type="text" id="editTitle" required />
+
+        <label>Description</label>
+        <textarea id="editDescription" required></textarea>
+
+        <label>Thumbnail Image Link (optional)</label>
+        <input type="url" id="editThumbnail" />
+
+        <label>Category</label>
+        <!-- filled by JS with the dynamic category list -->
+        <select id="editCategory"></select>
+
+        <label>Level</label>
+        <select id="editLevel">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+        </select>
+
+        <label>Language</label>
+        <select id="editLanguage">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Kannada</option>
+        </select>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+<div class="border-glow-card form-card mb-4">
+    <h2>Add Chapter</h2>
+    <form id="addChapterForm" class="inline-form">
+        <input type="text" id="chapterTitle" placeholder="Chapter title" required />
+        <button type="submit">Add Chapter</button>
+    </form>
+</div>
+
+<h2>Chapters and Content</h2>
+<!-- JS renders one BorderGlow card per chapter in here -->
+<div id="chaptersList"></div>
+
+<div class="border-glow-card mb-4">
+    <h2 class="mt-2">Enrolled Students</h2>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>Progress</th><th class="text-end">Action</th></tr>
+        </thead>
+        <tbody id="enrolledTableBody"></tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/manage-course.js"></script>
+}

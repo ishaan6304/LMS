@@ -1,0 +1,36 @@
+@page
+@{
+    ViewData["Title"] = "My Q&A (Student)";
+}
+
+<h1>Q&amp;A - Ask a Doubt</h1>
+
+<p id="pageAlert"></p>
+
+<div class="border-glow-card form-card mb-4">
+    <h2>Ask a Question</h2>
+
+    <form id="askForm">
+        <label>Course (only courses I am enrolled in)</label>
+        <select id="qnaCourse" required></select>
+
+        <label>Chapter (optional)</label>
+        <select id="qnaChapter">
+            <option value="">-- Whole course --</option>
+        </select>
+
+        <label>My Question</label>
+        <textarea id="qnaQuestion" rows="4" required placeholder="Type your doubt here..."></textarea>
+
+        <button type="submit">Send Question</button>
+    </form>
+</div>
+
+<h2>My Questions</h2>
+
+<!-- JS fills this div with one BorderGlow card per question -->
+<div id="historyList"></div>
+
+@section Scripts {
+    <script src="~/js/student/qna.js"></script>
+}

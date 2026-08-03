@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - LMS</title>
+    <link rel="stylesheet" href="~/css/theme.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+@{
+    var path = Context.Request.Path.Value?.TrimEnd('/') ?? "";
+    var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+}
+@if (segments.Length > 0 && !path.Equals("/", StringComparison.OrdinalIgnoreCase))
+{
+    <nav class="breadcrumbs" aria-label="breadcrumb">
+        @if (segments[0].Equals("Admin", StringComparison.OrdinalIgnoreCase))
+        {
+            <a class="crumb" href="/Admin/Dashboard">Dashboard</a>
+            if (segments.Length > 1 && !segments[1].Equals("Dashboard", StringComparison.OrdinalIgnoreCase))
+            {
+                if (segments[1].Equals("CreateUser", StringComparison.OrdinalIgnoreCase))
+                {
+                    <span class="crumb-sep">›</span>
+                    <a class="crumb" href="/Admin/Users">Users</a>
+                }
+                else if (segments[1].Equals("CreateCourse", StringComparison.OrdinalIgnoreCase))
+                {
+                    <span class="crumb-sep">›</span>
+                    <a class="crumb" href="/Admin/Courses">Courses</a>
+                }
+                <span class="crumb-sep">›</span>
+                <span class="crumb-current">@(ViewData["Title"] ?? segments[1])</span>
+            }
+        }
+        else if (segments[0].Equals("Instructor", StringComparison.OrdinalIgnoreCase))
+        {
+            <a class="crumb" href="/Instructor/Dashboard">Dashboard</a>
+            if (segments.Length > 1 && !segments[1].Equals("Dashboard", StringComparison.OrdinalIgnoreCase))
+            {
+                if (segments[1].Equals("CreateCourse", StringComparison.OrdinalIgnoreCase))
+                {
+                    <span class="crumb-sep">›</span>
+                    <a class="crumb" href="/Instructor/Courses">My Courses</a>
+                }
+                <span class="crumb-sep">›</span>
+                <span class="crumb-current">@(ViewData["Title"] ?? segments[1])</span>
+            }
+        }
+        else if (segments[0].Equals("Student", StringComparison.OrdinalIgnoreCase))
+        {
+            <a class="crumb" href="/Student/Dashboard">Dashboard</a>
+            if (segments.Length > 1 && !segments[1].Equals("Dashboard", StringComparison.OrdinalIgnoreCase))
+            {
+                <span class="crumb-sep">›</span>
+                <span class="crumb-current">@(ViewData["Title"] ?? segments[1])</span>
+            }
+        }
+        else
+        {
+            <a class="crumb" href="/">Home</a>
+            <span class="crumb-sep">›</span>
+            <span class="crumb-current">@(ViewData["Title"] ?? segments[0])</span>
+        }
+    </nav>
+}
+
+    @RenderBody()
+
+    <script src="~/js/fx/effects.js"></script>
+    <script src="~/js/api.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

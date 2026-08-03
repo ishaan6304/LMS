@@ -1,0 +1,18 @@
+@page
+@{
+    ViewData["Title"] = "Browse Courses";
+}
+
+<h1>Browse All Courses</h1>
+<p class="text-muted small mb-3">You can open and audit any course. Request enrollment to track progress and earn a certificate later.</p>
+
+<div id="pageAlert" class="d-none"></div>
+
+<input type="text" id="catalogSearch" class="mb-4" placeholder="Search courses by title or description..." />
+
+<!-- JS fills this with BorderGlow course cards -->
+<div id="catalogCards" class="row g-4"></div>
+
+@section Scripts {
+    <script src="~/js/student/catalog.js"></script>
+}

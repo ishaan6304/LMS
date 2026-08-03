@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     if (!user) return;
 
-    renderNavbar(user, "/student/qna.html");
+    renderNavbar(user, "/Student/Qna");
 
     await loadCourseDropdown();
     await loadHistory();
@@ -119,7 +119,7 @@ async function loadHistory() {
 
         html += `
             <div class="border-glow-card mb-3">
-                <p>Course: <a href="/course.html?id=${q.courseId}">${escapeHtml(q.courseTitle)}</a>${chapterText}</p>
+                <p>Course: <a href="/Course?id=${q.courseId}">${escapeHtml(q.courseTitle)}</a>${chapterText}</p>
                 <p><b>My question (${askedOn}):</b> ${escapeHtml(q.questionText)}</p>
                 ${answerHtml}
             </div>`;
